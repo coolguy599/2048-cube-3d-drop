@@ -1,0 +1,85 @@
+/**
+ * 2048 Cubes 3D - Save Engine Core
+ */
+const SaveManager = {
+    storageKey: "3d_cubes_2048_save",
+    autoSaveInterval: null,
+
+    init(gameEngineReference) {
+        this.game = gameEngineReference;
+        this.loadState();
+        this.startAutoSaveLoop();
+    },
+
+    captureCurrentState() {
+        const currentScore = this.game?.score || 0;
+        const currentHiScore = this.game?.hiScore || 0;
+        const currentNext = this.game?.nextCubeValue || 2;
+        const runtimeCubes = this.game?.activeMeshList || [];
+        
+        // Map native engine spatial states safely
+        const serializedCubes = runtimeCubes.map((cube, index) => {
+            return {
+                id: `cube_${Date.now()}_${index}`,
+                cubeVal: cube.userData?.value || 2,
+                pos: {
+                    x: parseFloat(cube.position.x.toFixed(3)),
+                    y: parseFloat(cube.position.y.toFixed(3)),
+                    z: parseFloat(cube.position.z.toFixed(3))
+                }
+            };
+        });
+
+        return {
+            meta: {
+                version: "1.0.0",
+                lastSaved: new Date().toISOString(),
+                isNewGame: serializedCubes.length === 0
+            },
+            stats: {
+                score: currentScore,
+                hiScore: currentHiScore
+            },
+            nextCube: {
+                cubeVal: currentNext
+            },
+            cubes: serializedCubes
+        };
+    },
+
+    saveState() {
+        const stateData = this.captureCurrentState();
+        // Set local storage data matrix
+        localStorage.setItem(this.storageKey, JSON.stringify(stateData));
+        localStorage.setItem("3d_cubes_hiScore", stateData.stats.hiScore);
+        
+        console.log("💾 save.json context updated locally. Next 7s loop scheduled.");
+        return stateData;
+    },
+
+    loadState() {
+        const locallyStored = localStorage.getItem(this.storageKey);
+        if (!locallyStored) return null;
+        
+        const parsedState = JSON.parse(locallyStored);
+        if(this.game) {
+            this.game.score = parsedState.stats.score;
+            this.game.hiScore = parsedState.stats.hiScore;
+        }
+        return parsedState;
+    },
+
+    startAutoSaveLoop() {
+        if (this.autoSaveInterval) clearInterval(this.autoSaveInterval);
+        this.autoSaveInterval = setInterval(() => {
+            this.saveState();
+        }, 7000); // Strict 7 second cycle execution path
+    },
+
+    purgeSave() {
+        localStorage.removeItem(this.storageKey);
+        localStorage.removeItem("3d_cubes_hiScore");
+    }
+};
+
+window.SaveManager = SaveManager;
