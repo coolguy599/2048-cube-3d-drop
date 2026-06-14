@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "lastSaved": null,
+    "isNewGame": true
+  },
+  "stats": {
+    "score": 0,
+    "hiScore": 0
+  },
+  "nextCube": {
+    "cubeVal": 2
+  },
+  "cubes": []
+}
