@@ -1,0 +1,18 @@
+{
+  "paletteName": "Neon Emissive 2048",
+  "version": "1.0.0",
+  "colors": {
+    "2":    { "bg": "#1e293b", "text": "#94a3b8", "glow": "#334155", "intensity": 0.2 },
+    "4":    { "bg": "#0f172a", "text": "#38bdf8", "glow": "#0ea5e9", "intensity": 0.4 },
+    "8":    { "bg": "#ff9f43", "text": "#ffffff", "glow": "#ff9f43", "intensity": 0.5 },
+    "16":   { "bg": "#ee5253", "text": "#ffffff", "glow": "#ee5253", "intensity": 0.6 },
+    "32":   { "bg": "#1dd1a1", "text": "#ffffff", "glow": "#1dd1a1", "intensity": 0.6 },
+    "64":   { "bg": "#00d2d3", "text": "#ffffff", "glow": "#00d2d3", "intensity": 0.7 },
+    "128":  { "bg": "#5f27cd", "text": "#ffffff", "glow": "#5f27cd", "intensity": 0.8 },
+    "256":  { "bg": "#feca57", "text": "#111111", "glow": "#feca57", "intensity": 0.8 },
+    "512":  { "bg": "#ff9ff3", "text": "#ffffff", "glow": "#ff9ff3", "intensity": 0.9 },
+    "1024": { "bg": "#00ffff", "text": "#000000", "glow": "#00ffff", "intensity": 1.0 },
+    "2048": { "bg": "#ff2a74", "text": "#ffffff", "glow": "#ff2a74", "intensity": 1.2 },
+    "default": { "bg": "#ff007f", "text": "#ffffff", "glow": "#ff007f", "intensity": 1.5 }
+  }
+}
